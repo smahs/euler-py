@@ -17,7 +17,7 @@ class Problem1(object):
     def __init__(self, bound):
         self.bound = bound
 
-    def run(self):
+    def fn(self):
         return sum([i for i in range(self.bound)
                     if i % 3 == 0 or i % 5 == 0])
 
@@ -32,14 +32,14 @@ class Problem1(object):
 class TestProblem1(TestCase):
 
     def setUp(self):
-        self.input = 1000
+        self.bound = 1000
         self.answer = 233168
 
     def test_main(self):
-        self.assertEqual(Problem1(self.input).run(), self.answer)
+        self.assertEqual(Problem1(self.bound).fn(), self.answer)
 
     def test_alt(self):
-        self.assertEqual(Problem1(self.input).alt(), self.answer)
+        self.assertEqual(Problem1(self.bound).alt(), self.answer)
 
 
 if __name__ == '__main__':
