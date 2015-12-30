@@ -1,16 +1,18 @@
 #!/usr/bin/python2
 
-"""
-Contains the functions defination which are commonly used
-"""
-from math import sqrt
 
+class Utilities(object):
 
-class Utils(object):
+    """
+    Reusable utility functions
+    """
+
     @classmethod
     def check_prime(cls, num):
-        for i in xrange(2, int(sqrt(num)) + 1, 1):
-            if num % i == 0:
+        if not num % 2:
+            return False
+        for i in xrange(3, int(num**0.5) + 1, 2):
+            if not num % i:
                 return False
         return True
 
@@ -23,7 +25,16 @@ class Utils(object):
         return rev_num
 
     @classmethod
-    def check_palindrom(cls, num):
-        if num == Utils.reverse(num):
+    def reverse_s(string):
+        try:
+            if not isinstance(string, str):
+                string = str(string)
+            return string[::-1]
+        except:
+            return None
+
+    @classmethod
+    def check_palindrome(cls, num):
+        if num == Utilities.reverse(num):
             return True
         return False
