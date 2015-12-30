@@ -31,7 +31,7 @@ five hundred divisors?
 Prelude:
 
 Solving this problem with sheer brute force is very costly,
-with a time complexity running in O[n^2] with very large n.
+with a time complexity running of O[n^2] with very large n.
 
 An optimal solution for this problem needs multiple alrorithmic
 optimizations. First comes from the fact that a triangular
@@ -50,8 +50,12 @@ the multiples of prime factors, the total number of factors is
 
 Combining [1] and [2], the factors of a triangular number are,
 with the assumption that n is even (since either n or n+1 has
-to be even, and we want the smallest number),
-    2 * prod_2(a+1) * prod_1(b+1) (== 500)
+to be even, and we want the smallest number), with n and n+1 as
+    n = p_1^a_1 * p_2^a_2 ... p_s^a_s
+    n+1 = q_1^b_1 * q_2^b_2 ... q_t^b_t
+    number of factors = (a_1-1) * prod(a_2 ... a_s) *
+                        prod(b_1 ... b_t)  (< 500)
+where a_1 is 2.
 
 http://www.primepuzzles.net/problems/prob_019.htm
 http://code.jasonbhill.com/sage/project-euler-problem-12/
@@ -70,17 +74,18 @@ class Problem12(object):
 
     def combinations(self, number):
         factors = prime_factors(number)
+        if 2 in factors:
+            factors[2] = factors[2] - 1
         return reduce(lambda x, y: x*y,
                       [i+1 for i in factors.values()])
 
     def fn(self):
         index = 2
         this = self.combinations(index)
-        next = self.combinations(index+1)
-        while this * next < self.bound:
+        nxt = self.combinations(index+1)
+        while this * nxt < self.bound:
             index += 1
-            this, next = next, self.combinations(index+1)
-            print index, this, next
+            this, nxt = nxt, self.combinations(index+1)
         return index * (index + 1) / 2
 
 
@@ -88,11 +93,10 @@ class TestProblem12(TestCase):
 
     def setUp(self):
         self.bound = 500
-        self.answer = 142913828922
+        self.answer = 76576500
 
     def test_main(self):
-        print Problem12(self.bound).fn()
-        # self.assertEqual(Problem12(self.bound).fn(), self.answer)
+        self.assertEqual(Problem12(self.bound).fn(), self.answer)
 
 
 if __name__ == '__main__':
