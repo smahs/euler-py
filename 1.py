@@ -18,8 +18,8 @@ class Problem1(object):
         self.bound = bound
 
     def fn(self):
-        return sum([i for i in range(self.bound)
-                    if i % 3 == 0 or i % 5 == 0])
+        n = self.bound
+        return sum(set(range(3,n,3) + range(5,n,5)))
 
     def alt(self):
         bound = self.bound - 1  # LESS than 1000
