@@ -17,7 +17,7 @@ Sieve of Eratosthenes.
 
 
 from unittest import TestCase, main
-from utils import Utilities
+from utils import prime_sieve
 
 
 class Problem10(object):
@@ -26,7 +26,7 @@ class Problem10(object):
         self.bound = bound
 
     def fn(self):
-        sieve = Utilities.prime_sieve(self.bound)
+        sieve = prime_sieve(self.bound)
         sieve = [i for i, v in enumerate(sieve) if v]
         return sum(sieve)
 

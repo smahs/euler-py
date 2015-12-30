@@ -14,7 +14,7 @@ product of two 3-digit numbers.
 
 
 from unittest import TestCase, main
-from utils import Utilities
+from utils import check_palindrome
 
 
 class Problem4(object):
@@ -29,8 +29,9 @@ class Problem4(object):
                 product = first * second
                 if product < known:
                     break
-                if Utilities.check_palindrome(product):
+                if check_palindrome(product):
                     known = product
+                    print known
                 second -= decrement
         return known
 
