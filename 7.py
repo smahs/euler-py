@@ -22,6 +22,7 @@ A 20% margin is added for uncertainty.
 
 from unittest import TestCase, main
 from math import log
+from utils import prime_sieve
 
 
 class Problem7(object):
@@ -31,18 +32,9 @@ class Problem7(object):
         self.limit = int(1.2 * bound * log(bound))
 
     def fn(self):
-        sieve = [True] * int(self.limit)
-        sieve[0], sieve[1] = [None] *2
-        counter = 0
-
-        for i, v in enumerate(sieve):
-            if not v:
-                continue
-            sieve[i**2::i] = ([False] *
-                              ((self.limit - 1) / i - (i - 1)))
-            counter += 1
-            if counter == self.bound:
-                return i
+        sieve = prime_sieve(self.limit)
+        sieve = [i for i, v in enumerate(sieve) if v]
+        return sieve[self.bound]
 
 
 class TestProblem7(TestCase):
