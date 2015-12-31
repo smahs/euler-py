@@ -49,19 +49,26 @@ instr = [map(int, s.split()) for s in instr.split('\n') if s]
 class Problem18(object):
     def __init__(self):
         self._mat = instr
-        self._sol = deepcopy(instr)
 
     def fn(self):
+        sol = deepcopy(instr)
         for i in xrange(len(self._mat) - 1):
             for j in xrange(len(self._mat[i])):
-                self._sol[i+1][j] = max(
-                    self._sol[i][j] + self._mat[i+1][j],
-                    self._sol[i+1][j]
+                sol[i+1][j] = max(
+                    sol[i][j] + self._mat[i+1][j],
+                    sol[i+1][j]
                 )
-                self._sol[i+1][j+1] = (
-                    self._sol[i][j] + self._mat[i+1][j+1]
+                sol[i+1][j+1] = (
+                    sol[i][j] + self._mat[i+1][j+1]
                 )
-        return max(self._sol[-1])
+        return max(sol[-1])
+
+    def alt(self):
+        mat = deepcopy(instr)
+        for i in xrange(len(mat)-1, -1, -1):
+            for j in xrange(i):
+                mat[i-1][j] += max(mat[i][j], mat[i][j+1])
+        return mat[0][0]
 
 
 class TestProblem18(TestCase):
@@ -69,6 +76,9 @@ class TestProblem18(TestCase):
         self.answer = 1074
 
     def test_fn(self):
+        self.assertEqual(Problem18().fn(), self.answer)
+
+    def test_alt(self):
         self.assertEqual(Problem18().fn(), self.answer)
 
 
