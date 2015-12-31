@@ -21,6 +21,11 @@ containing one-hundred rows; it cannot be solved by brute force, and requires a
 clever method! ;o)
 """
 
+
+from unittest import TestCase, main
+from copy import deepcopy
+
+
 instr = """
 75
 95 64
@@ -38,50 +43,33 @@ instr = """
 63 66 04 68 89 53 67 30 73 16 69 87 40 31
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
 """
-
-
-from unittest import TestCase, main
-from copy import deepcopy
-
-
-instr = [[int(i) for i in s.split(' ')]for s in instr.split('\n') if s]
+instr = [map(int, s.split()) for s in instr.split('\n') if s]
 
 
 class Problem18(object):
-    def __init__(self, instr):
-        self._matrix = instr
-        self._solution = deepcopy(instr)
+    def __init__(self):
+        self._mat = instr
+        self._sol = deepcopy(instr)
 
     def fn(self):
-        max_sum = 0
-        for i in xrange(len(self._matrix) - 1):
-            for j in xrange(i + 1):
-                self._solution[i + 1][j] = (self._solution[i][j]
-                                            + self._matrix[i + 1][j]
-                                            if self._solution[i][j]
-                                            + self._matrix[i + 1][j]
-                                            > self._solution[i + 1][j]
-                                            else self._solution[i + 1][j])
-                self._solution[i + 1][j + 1] = (self._solution[i][j]
-                                                + self._matrix[i + 1][j + 1]
-                                                if self._solution[i][j]
-                                                + self._matrix[i + 1][j + 1]
-                                                > self._solution[i + 1][j + 1]
-                                                else self._solution[i + 1][j + 1])
-                tmp = (self._solution[i + 1][j] if self._solution[i + 1][j]
-                       > self._solution[i + 1][j + 1]
-                       else self._solution[i + 1][j + 1])
-                max_sum = (tmp if tmp > max_sum else max_sum)
-        return max_sum
+        for i in xrange(len(self._mat) - 1):
+            for j in xrange(len(self._mat[i])):
+                self._sol[i+1][j] = max(
+                    self._sol[i][j] + self._mat[i+1][j],
+                    self._sol[i+1][j]
+                )
+                self._sol[i+1][j+1] = (
+                    self._sol[i][j] + self._mat[i+1][j+1]
+                )
+        return max(self._sol[-1])
 
 
 class TestProblem18(TestCase):
     def setUp(self):
-        self.instr = instr
         self.answer = 1074
 
     def test_fn(self):
-        self.assertEqual(Problem18(self.instr).fn(), self.answer)
+        self.assertEqual(Problem18().fn(), self.answer)
 
 
 if __name__ == '__main__':
