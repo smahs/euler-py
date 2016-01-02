@@ -2,6 +2,7 @@
 
 
 from math import sqrt
+from decimal import Decimal
 
 
 def check_prime(num):
@@ -43,7 +44,7 @@ def prime_sieve(limit):
         if not v:
             continue
         sieve[i**2::i] = ([False] *
-                            ((limit - 1) / i - (i - 1)))
+                          ((limit - 1) / i - (i - 1)))
         counter += 1
     # 1 is neither prime nor composite, 2 is prime
     sieve[0], sieve[1] = (True, False)
@@ -59,7 +60,6 @@ def multiples(number, factor):
 
 
 def prime_factors(number):
-    original = number
     factors, current = ({}, 3)
     if not number % 2:
         number, factors[2] = multiples(number, 2)
@@ -67,7 +67,7 @@ def prime_factors(number):
     while number > 1 and current <= max_factor:
         if not number % current:
             number, factors[current] = multiples(number, current)
-        max_factor = int(sqrt(number)+ 1)
+        max_factor = int(sqrt(number) + 1)
         current += 2
     if number is not 1:
         factors[number] = 1
@@ -76,6 +76,13 @@ def prime_factors(number):
 
 def factors(number):
     return set(factor for factors in ((i, number/i) for i in
-                                        xrange(1, int(sqrt(number) + 1))
-                                        if not number % i)
-                for factor in factors)
+                                      xrange(1, int(sqrt(number) + 1))
+                                      if not number % i)
+               for factor in factors)
+
+
+def fibn(n):
+    n = Decimal(n)
+    root5 = Decimal(sqrt(5))
+    return int(((1 + root5) ** n - (1 - root5) ** n) /
+               ((2 ** n) * root5))
