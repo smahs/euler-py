@@ -34,7 +34,7 @@ class Problem7(object):
     def fn(self):
         sieve = prime_sieve(self.limit)
         sieve = [i for i, v in enumerate(sieve) if v]
-        return sieve[self.bound]
+        return sieve[self.bound - 1]
 
 
 class TestProblem7(TestCase):

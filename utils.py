@@ -38,16 +38,10 @@ def check_palindrome(num):
 
 def prime_sieve(limit):
     sieve = [True] * int(limit)
-    sieve[0], sieve[1] = [None] * 2
-    counter = 0
+    sieve[0], sieve[1] = [False] * 2
     for i, v in enumerate(sieve):
-        if not v:
-            continue
-        sieve[i**2::i] = ([False] *
-                          ((limit - 1) / i - (i - 1)))
-        counter += 1
-    # 1 is neither prime nor composite, 2 is prime
-    sieve[0], sieve[1] = (True, False)
+        if v:
+            sieve[i**2::i] = ([False] * (((limit - 1) / i) - (i - 1)))
     return sieve
 
 
@@ -59,17 +53,22 @@ def multiples(number, factor):
     return (number, counter)
 
 
-def prime_factors(number):
+def prime_factors(number, limit=None):
+    original = number
     factors, current = ({}, 3)
     if not number % 2:
         number, factors[2] = multiples(number, 2)
-    max_factor = int(sqrt(number) + 1)
+    if limit and factor_length(factors.values()) >= limit:
+        return factors
+    max_factor = int(sqrt(number)) + 1
     while number > 1 and current <= max_factor:
         if not number % current:
             number, factors[current] = multiples(number, current)
-        max_factor = int(sqrt(number) + 1)
+        if limit and factor_length(factors.values()) >= limit:
+            break
+        max_factor = int(sqrt(number)) + 1
         current += 2
-    if number is not 1:
+    if number != 1 and number != original:
         factors[number] = 1
     return factors
 
