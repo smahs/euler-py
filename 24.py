@@ -33,13 +33,14 @@ solutions.
 The solution is explained at:
 http://www.mathblog.dk/project-euler-24-millionth-lexicographic-permutation/
 
-Note 1: The combinatorics algorithm actually generates
-the first n-1 digits, nth cobination is unique based on the
-unused integer.
+Note 1: The last term in combinatorics algorithm is actually
+the last remaining unused term as this has only one possibility.
+Hence we have find the first terms for the first n-1 combinations.
 
 Note 2: Solution alt1 is a representation of itertools based alt2.
 Both alt1 and alt2 are memory safe, and should not cause
-stackoverflow exception!
+stackoverflow exception! These solutions are more generic and
+can be used for non alphanumeric terms as well.
 """
 
 
