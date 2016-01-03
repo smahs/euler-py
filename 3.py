@@ -25,6 +25,7 @@ the only factor larger than its square root is itself.
 
 
 from unittest import TestCase, main
+from utils import prime_factors
 
 
 class Problem3(object):
@@ -32,27 +33,8 @@ class Problem3(object):
     def __init__(self, bound):
         self.bound = bound
 
-    def divide(self, num, factor):
-        while not num % factor:
-            num = num / factor
-        return num
-
     def fn(self):
-        n = self.bound
-        factor, last = (3, 1)
-        if not n % 2:
-            last = 2
-            n = self.divide(n, 2)
-        max_f = int(n ** 0.5 + 1)
-        while n > 1 and factor <= max_f:
-            if not (factor % 2):
-                continue
-            if not n % factor:
-                last = factor
-                n = self.divide(n, factor)
-            max_f = int(n ** 0.5 + 1)
-            factor += 2
-        return last if n == 1 else n
+        return max(prime_factors(self.bound).keys())
 
 
 class TestProblem3(TestCase):

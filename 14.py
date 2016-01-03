@@ -40,7 +40,7 @@ class Problem14(object):
 
     def __init__(self, bound):
         self.bound = bound
-        self.lengths = [0] * bound
+        self.lengths = [0] * (bound[1] - 1)
 
     def chain(self, number, counter=1):
         newnum = number
@@ -55,14 +55,14 @@ class Problem14(object):
         self.lengths[number-1] = counter
 
     def fn(self):
-        map(self.chain, xrange(1, self.bound+1))
+        map(self.chain, xrange(*self.bound))
         return self.lengths.index(max(self.lengths)) + 1
 
 
 class TestProblem14(TestCase):
 
     def setUp(self):
-        self.bound = 1000000
+        self.bound = (1, 1000000+1)
         self.answer = 837799
 
     def test_main(self):

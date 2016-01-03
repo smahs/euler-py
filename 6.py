@@ -27,14 +27,14 @@ class Problem6(object):
         self.bound = bound
 
     def fn(self):
-        n = self.bound + 1
-        return (map(lambda i: i*i, [sum(range(1, n))])[0]
-                - sum(map(lambda i: i*i, range(1, n))))
+        return (map(lambda i: i*i, [sum(xrange(*self.bound))])[0] -
+                sum(map(lambda i: i*i, xrange(*self.bound))))
+
 
 class TestProblem6(TestCase):
 
     def setUp(self):
-        self.bound = 100
+        self.bound = (1, 101)
         self.answer = 25164150
 
     def test_main(self):

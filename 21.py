@@ -31,7 +31,7 @@ class Problem21(object):
         return sum(factors(num)) - num
 
     def fn(self):
-        for num in xrange(2, self.bound):
+        for num in xrange(*self.bound):
             if num in self.pairs:
                 continue
             this = self.factor_sum(num)
@@ -44,7 +44,7 @@ class Problem21(object):
 class TestProblem21(TestCase):
 
     def setUp(self):
-        self.bound = 10000
+        self.bound = (2, 10000)
         self.answer = 31626
 
     def test_main(self):

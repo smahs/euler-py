@@ -18,30 +18,32 @@ from utils import check_palindrome
 
 
 class Problem4(object):
+
+    def __init__(self, bound):
+        self.bound = bound
+
     def run(self):
         known = 0
-        for first in xrange(999, 99, -1):
+        for first in xrange(self.bound, 99, -1):
             if not first % 11:
-                second, decrement = (999, 1)
+                second, decrement = (self.bound, 1)
             else:
                 second, decrement = (990, 11)
             while second >= first:
                 product = first * second
-                if product < known:
-                    break
-                if check_palindrome(product):
+                if product > known and check_palindrome(product):
                     known = product
-                    print known
                 second -= decrement
         return known
 
 
 class Testproblem4(TestCase):
     def setUp(self):
+        self.bound = 999
         self.answer = 906609
 
     def test_run(self):
-        self.assertEqual(Problem4().run(), self.answer)
+        self.assertEqual(Problem4(self.bound).run(), self.answer)
 
 
 if __name__ == '__main__':

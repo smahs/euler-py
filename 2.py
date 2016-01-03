@@ -27,6 +27,7 @@ http://mathworld.wolfram.com/BinetsFibonacciNumberFormula.html
 
 
 from unittest import TestCase, main
+from utils import fibn
 
 
 class Problem2(object):
@@ -34,14 +35,10 @@ class Problem2(object):
     def __init__(self, bound):
         self.bound = bound
 
-    def fibn(self, n):
-        return (((1 + (5**(1/2.0))) ** n - (1 - (5**(1/2.0))) ** n) /
-                ((2 ** n) * 5**(1/2.0)))
-
     def gen_series(self):
         i, val = (0, 0)
         while val < self.bound:
-            val = self.fibn(i)
+            val = fibn(i)
             yield int(val)
             i += 1
 

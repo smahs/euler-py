@@ -19,7 +19,7 @@ class Problem1(object):
 
     def fn(self):
         n = self.bound
-        return sum(set(range(3,n,3) + range(5,n,5)))
+        return sum(set(range(3, n, 3) + range(5, n, 5)))
 
     def alt(self):
         bound = self.bound - 1  # LESS than 1000

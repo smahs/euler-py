@@ -19,14 +19,15 @@ from unittest import TestCase, main
 
 class Problem9(object):
     def __init__(self, bound):
-        self._bound = bound
+        self.bound = bound
 
     def fn(self):
-        for num1 in xrange(1, self._bound / 2 - 1, 1):
-            for num2 in xrange(num1 + 1, self._bound / 2, 1):
-                    num3 = self._bound - num1 - num2
-                    if num1 * num1 + num2 * num2 == num3 * num3:
-                        return num1 * num2 * num3
+        limit = self.bound / 2 - 1
+        for i in xrange(1, limit):
+            for j in xrange(i+1, limit):
+                    k = self.bound - i - j
+                    if i*i + j*j == k*k:
+                        return i*j*k
 
 
 class TestProblem9(TestCase):

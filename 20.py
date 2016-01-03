@@ -18,17 +18,17 @@ from unittest import TestCase, main
 class Problem20(object):
 
     def __init__(self, bound):
-        self.bound = 100
+        self.bound = bound
 
     def fn(self):
         return sum(map(int, str(reduce(lambda i, j: i*j,
-                                       range(1, self.bound)))))
+                                       xrange(*self.bound)))))
 
 
 class TestProblem20(TestCase):
 
     def setUp(self):
-        self.bound = 100
+        self.bound = (1, 100)
         self.answer = 648
 
     def test_main(self):

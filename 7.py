@@ -15,7 +15,7 @@ Prelude:
 This problem is solved with an implementation of
 Sieve of Eratosthenes.
 
-Limit for search is given by prime number theorem.
+Limit for search is given by the prime number theorem.
 A 20% margin is added for uncertainty.
 """
 
@@ -34,13 +34,13 @@ class Problem7(object):
     def fn(self):
         sieve = prime_sieve(self.limit)
         sieve = [i for i, v in enumerate(sieve) if v]
-        return sieve[self.bound - 1]
+        return sieve[self.bound]
 
 
 class TestProblem7(TestCase):
 
     def setUp(self):
-        self.bound = 10001
+        self.bound = 10000  # python indices are zero based
         self.answer = 104743
 
     def test_main(self):

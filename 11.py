@@ -43,33 +43,23 @@ instr = [[int(i) for i in s.split(' ')] for s in instr.split('\n') if s]
 
 
 class Problem11(object):
-    def __init__(self, instr):
-        self._matrix = instr
-
-    def print_matrix(self):
-        print self._matrix
-        print len(self._matrix[0])
+    def __init__(self, matrix):
+        self.mat = matrix
 
     def fn(self):
         product = 0
-        r_limit = len(self._matrix)
-        c_limit = len(self._matrix[0])
-        for i in xrange(r_limit - 3):
-            for j in xrange(c_limit - 3):
-                p1 = self._matrix[i][j] * self._matrix[i][j + 1] * \
-                    self._matrix[i][j + 2] * self._matrix[i][j + 3]
-                product = (p1 if p1 > product else product)
-                p1 = self._matrix[i][j] * self._matrix[i + 1][j] * \
-                    self._matrix[i + 2][j] * self._matrix[i + 3][j]
-                product = (p1 if p1 > product else product)
-                p1 = self._matrix[i][j] * self._matrix[i + 1][j + 1] * \
-                    self._matrix[i + 2][j + 2] * self._matrix[i + 3][j + 3]
-                product = (p1 if p1 > product else product)
-                if i < 3:
-                    continue
-                p1 = self._matrix[i][j] * self._matrix[i - 1][j + 1] * \
-                    self._matrix[i - 2][j + 2] * self._matrix[i - 3][j + 3]
-                product = (p1 if p1 > product else product)
+        for i in xrange(4, len(self.mat) - 3):
+            for j in xrange(len(self.mat) - 3):
+                p1 = (self.mat[i][j] * self.mat[i][j+1] *
+                      self.mat[i][j+2] * self.mat[i][j+3])
+                p2 = (self.mat[i][j] * self.mat[i+1][j] *
+                      self.mat[i+2][j] * self.mat[i+3][j])
+                p3 = (self.mat[i][j] * self.mat[i+1][j+1] *
+                      self.mat[i+2][j+2] * self.mat[i+3][j+3])
+                p4 = (self.mat[i][j] * self.mat[i-1][j+1] *
+                      self.mat[i-2][j+2] * self.mat[i-3][j+3])
+                p = max(p1, p2, p3, p4)
+                product = (p if p > product else product)
         return product
 
 
