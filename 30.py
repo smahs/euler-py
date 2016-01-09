@@ -21,7 +21,7 @@ the sum of fifth powers of their digits.
 from unittest import TestCase, main
 
 
-class Problem1(object):
+class Problem30(object):
 
     def __init__(self, bound):
         self.bound = bound
@@ -45,17 +45,17 @@ class Problem1(object):
                    if sum(map(lambda i: i**5, map(int, str(i)))) == i)
 
 
-class TestProblem1(TestCase):
+class TestProblem30(TestCase):
 
     def setUp(self):
         self.bound = (2, 6 * 9 ** 5)  # max sum of digit ** 5
         self.answer = 443839
 
     def test_main(self):
-        self.assertEqual(Problem1(self.bound).fn(), self.answer)
+        self.assertEqual(Problem30(self.bound).fn(), self.answer)
 
     def test_alt(self):
-        self.assertEqual(Problem1(self.bound).alt(), self.answer)
+        self.assertEqual(Problem30(self.bound).alt(), self.answer)
 
 
 if __name__ == '__main__':
